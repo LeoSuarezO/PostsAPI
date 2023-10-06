@@ -15,6 +15,9 @@ mongoose
     console.error("MongoDB connection error: ", err);
   });
 
+  app.use(express.json());
+  app.use(cors());
+
   const postSchema = new mongoose.Schema({
     postId: {
       type: String,
@@ -46,6 +49,7 @@ app.get("/api/posts", async (req, res) => {
   
   app.post("/api/create", async (req, res) => {
     try {
+        console.log(req.body)
       const {
         postId,
         authorId,
@@ -112,8 +116,7 @@ app.get("/api/posts", async (req, res) => {
       }
   });
 
-app.use(express.json());
-app.use(cors());
+
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
