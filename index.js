@@ -58,18 +58,18 @@ app.get("/api/posts", async (req, res) => {
       } = req.body;
       console.log(req.body);
       const createdAt = new Date();
-      if(isPublished){
-      const publishedAt = new Date();
-      }
       const post = new Post({
         postId,
         authorId,
         title,
         isPublished,
-        createdAt,
-        updatedAt,
-        publishedAt,
+        createdAt
       });
+
+      if(post.isPublished){
+        post.publishedAt = new Date();
+        }
+
       await post.save();
       res.status(200).json(post);
     } catch (error) {
